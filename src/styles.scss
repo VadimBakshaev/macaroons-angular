@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: Tavolga;
+    src: url('./assets/fonts/tavolga-free.ttf');
+}
+
+@font-face {
+    font-family: Gilroy-Regular;
+    src: url('./assets/fonts/Gilroy-Regular.ttf');
+}
+
+@font-face {
+    font-family: Gilroy-Medium;
+    src: url('./assets/fonts/Gilroy-Medium.ttf');
+}
+
+@font-face {
+    font-family: Gilroy-Bold;
+    src: url('./assets/fonts/Gilroy-Bold.ttf');
+}
+
+@font-face {
+    font-family: Gilroy-Extrabold;
+    src: url('./assets/fonts/Gilroy-Extrabold.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    transition: all 0.4s;
+}
+
+body {
+    font-family: Tavolga, sans-serif;    
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
