@@ -209,6 +209,7 @@
     display: grid;
     grid-template: 1fr/repeat(4, 263px);
     justify-content: space-between;
+    row-gap: 80px;
 }
 
 .unit {

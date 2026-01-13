@@ -2,14 +2,14 @@
   <div class="container">
     <header class="main__header">
       <div class="logo">macaroons</div>
-      <nav class="main__menu" id="menu">
-        <a href="#" class="main__menu-item">Пироженки</a>
-        <a href="#" class="main__menu-item">О нас</a>
-        <a href="#" class="main__menu-item">Оформить заказ</a>
-        <div class="main__menu-close-ico">&#215;</div>
+      <nav class="main__menu" #menuEl>
+        <a class="main__menu-item" (click)="scrollTo(assortmentEl);openMenu(menuEl)">Пироженки</a>
+        <a class="main__menu-item" (click)="scrollTo(advantagesEl);openMenu(menuEl)">О нас</a>
+        <a class="main__menu-item" (click)="scrollTo(orderEl);openMenu(menuEl)">Оформить заказ</a>
+        <div class="main__menu-close-ico" (click)="openMenu(menuEl)">&#215;</div>
       </nav>
-      <div class="contacts main__contacts">+375 (29) 368-98-68</div>
-      <div class="main__menu-ico" id="burger">
+      <div class="contacts main__contacts">{{phoneNumber}}</div>
+      <div class="main__menu-ico" (click)="openMenu(menuEl)">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="22px">
           <path fill-rule="evenodd" fill="rgb(130, 19, 40)"
             d="M0.0,0.0 L39.999,0.0 L39.999,1.999 L0.0,1.999 L0.0,0.0 Z" />
@@ -26,7 +26,7 @@
           пироженки Macaroons</h1>
         <p class="main__text">Побалуйте себя и своих близких самыми вкусными и ароматными домашними
           пироженками Macaroon!</p>
-        <a href="#" class="main__button button">Выбрать макарун</a>
+        <a class="main__button button" (click)="scrollTo(assortmentEl)">Выбрать макарун</a>
       </div>
       <div class="main__image">
         <img src="../assets/images/macaroon_big.png" alt="macaroons" class="main__image-img">
@@ -34,7 +34,7 @@
     </section>
   </div>
 </main>
-<section class="advantages">
+<section class="advantages" #advantagesEl>
   <div class="container">
     <div class="advantages__box">
       <div class="advantages__info">
@@ -50,77 +50,35 @@
       </div>
     </div>
     <div class="advantages__items">
+      @for (advantage of advantages; track advantage; let i = $index) {
       <div class="item">
-        <div class="item__number">1</div>
-        <h4 class="item__title">Лучшие продукты</h4>
-        <p class="item__text">Мы честно готовим макаруны только из натуральных и качественных продуктов. Мы
-          не используем консерванты, ароматизаторы и красители.</p>
+        <div class="item__number">{{i+1}}</div>
+        <h4 class="item__title">{{advantage.title}}</h4>
+        <p class="item__text">{{advantage.text}}</p>
       </div>
-      <div class="item">
-        <div class="item__number">2</div>
-        <h4 class="item__title">Много вкусов</h4>
-        <p class="item__text">Наша задача – предоставить вам широкое разнобразие вкусов. Вы удивитесь, но у
-          нас более 70 вкусов пироженок.</p>
-      </div>
-      <div class="item">
-        <div class="item__number">3</div>
-        <h4 class="item__title">Бисквитное тесто</h4>
-        <p class="item__text">Все пирожные готовятся на бисквитном тесте с качественным сливочным маслом
-          82,5%. В составе нет маргарина и дрожжей!</p>
-      </div>
-      <div class="item">
-        <div class="item__number">4</div>
-        <h4 class="item__title">Честный продукт</h4>
-        <p class="item__text">Вкус, качество и безопасность наших пирогов подтверждена декларацией о
-          соответствии, которую мы получили 22.06.2016 г.</p>
-      </div>
+      }
     </div>
   </div>
 </section>
-<section class="assortment">
+<section class="assortment" #assortmentEl>
   <div class="assortment__container container">
     <h2 class="assortment__title">Выберите свой макарун</h2>
     <div class="assortment__units">
+      @for (unit of assortment; track unit; let i = $index) {
       <div class="unit">
-        <img src="../assets/images/1.png" alt="macaroon" class="unit__image">
+        <img src="../assets/images/{{unit.image}}" alt="macaroon {{i+1}}" class="unit__image">
         <div class="unit__box">
-          <h4 class="unit__name">Макарун с малиной</h4>
-          <p class="unit__count">1 шт.</p>
-          <p class="unit__price">1,70 руб.</p>
-          <a href="#" class="unit__button button">Заказать</a>
+          <h4 class="unit__name">{{unit.name}}</h4>
+          <p class="unit__count">{{unit.count}} шт.</p>
+          <p class="unit__price">{{(unit.price).toFixed(2)}} руб.</p>
+          <a class="unit__button button" (click)="onOrder(unit, orderEl)">Заказать</a>
         </div>
       </div>
-      <div class="unit">
-        <img src="../assets/images/2.png" alt="macaroon" class="unit__image">
-        <div class="unit__box">
-          <h4 class="unit__name">Макарун с манго</h4>
-          <p class="unit__count">1 шт.</p>
-          <p class="unit__price">1,70 руб.</p>
-          <a href="#" class="unit__button button">Заказать</a>
-        </div>
-      </div>
-      <div class="unit">
-        <img src="../assets/images/3.png" alt="macaroon" class="unit__image">
-        <div class="unit__box">
-          <h4 class="unit__name">Пирог с ванилью</h4>
-          <p class="unit__count">1 шт.</p>
-          <p class="unit__price">1,70 руб.</p>
-          <a href="#" class="unit__button button">Заказать</a>
-        </div>
-      </div>
-      <div class="unit">
-        <img src="../assets/images/4.png" alt="macaroon" class="unit__image">
-        <div class="unit__box">
-          <h4 class="unit__name">Пирог с ванилью</h4>
-          <p class="unit__count">1 шт.</p>
-          <p class="unit__price">1,70 руб.</p>
-          <a href="#" class="unit__button button">Заказать</a>
-        </div>
-      </div>
+      }
     </div>
   </div>
 </section>
-<section class="order">
+<section class="order" #orderEl>
   <div class="order__container container">
     <div class="order__berry-one">
       <img src="../assets/images/berry1.png" alt="berry" class="order__berry-one-img">
@@ -132,13 +90,16 @@
       <h2 class="order__title">Закажите макарун!</h2>
       <p class="order__text">Выберите понравившийся макарун, заполните форму и ожидайте звонка нашего пекаря!
       </p>
-      <form action="#" class="order__form">
+      <form class="order__form">
         <p class="order__label-change">Ваш выбор</p>
-        <input type="text" placeholder="Напишите, что хотите заказать..." class="order__iput-change input">
+        <input type="text" placeholder="Напишите, что хотите заказать..." class="order__iput-change input"
+          [(ngModel)]="formValue.userChange" name="order_change">
         <p class="order__label-data">Заполните данные для заказа</p>
-        <input type="text" placeholder="Ваше имя" class="order__input-name input">
-        <input type="text" placeholder="+375 (__) ___ - __ - __" class="order__input-phone input">
-        <a href="#" class="order__button button">Оформить заказ</a>
+        <input type="text" placeholder="Ваше имя" class="order__input-name input" [(ngModel)]="formValue.userName"
+          name="user_name">
+        <input type="text" placeholder="+375 (__) ___ - __ - __" class="order__input-phone input"
+          [(ngModel)]="formValue.userPhone" name="user_phone">
+        <a class="order__button button">Оформить заказ</a>
       </form>
     </div>
     <div class="order__berry-two">
@@ -146,7 +107,7 @@
     </div>
   </div>
 </section>
-<footer class="footer">
+<footer class="footer" #footerEl>
   <div class="footer__container container">
     <div class="footer__logo">
       <div class="logo">macaroons</div>
@@ -154,28 +115,31 @@
 
     <div class="footer__social">
       <div class="footer__ico">
-        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256"
-          class="footer__ico-svg">
-          <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-            font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal" class="svg-fill">
-            <g transform="scale(10.66667,10.66667)">
-              <path
-                d="M8,3c-2.757,0 -5,2.243 -5,5v8c0,2.757 2.243,5 5,5h8c2.757,0 5,-2.243 5,-5v-8c0,-2.757 -2.243,-5 -5,-5zM8,5h8c1.654,0 3,1.346 3,3v8c0,1.654 -1.346,3 -3,3h-8c-1.654,0 -3,-1.346 -3,-3v-8c0,-1.654 1.346,-3 3,-3zM17,6c-0.55228,0 -1,0.44772 -1,1c0,0.55228 0.44772,1 1,1c0.55228,0 1,-0.44772 1,-1c0,-0.55228 -0.44772,-1 -1,-1zM12,7c-2.757,0 -5,2.243 -5,5c0,2.757 2.243,5 5,5c2.757,0 5,-2.243 5,-5c0,-2.757 -2.243,-5 -5,-5zM12,9c1.654,0 3,1.346 3,3c0,1.654 -1.346,3 -3,3c-1.654,0 -3,-1.346 -3,-3c0,-1.654 1.346,-3 3,-3z">
-              </path>
+        <a href="{{instaLink}}"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+            viewBox="0,0,256,256" class="footer__ico-svg">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+              font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"
+              class="svg-fill">
+              <g transform="scale(10.66667,10.66667)">
+                <path
+                  d="M8,3c-2.757,0 -5,2.243 -5,5v8c0,2.757 2.243,5 5,5h8c2.757,0 5,-2.243 5,-5v-8c0,-2.757 -2.243,-5 -5,-5zM8,5h8c1.654,0 3,1.346 3,3v8c0,1.654 -1.346,3 -3,3h-8c-1.654,0 -3,-1.346 -3,-3v-8c0,-1.654 1.346,-3 3,-3zM17,6c-0.55228,0 -1,0.44772 -1,1c0,0.55228 0.44772,1 1,1c0.55228,0 1,-0.44772 1,-1c0,-0.55228 -0.44772,-1 -1,-1zM12,7c-2.757,0 -5,2.243 -5,5c0,2.757 2.243,5 5,5c2.757,0 5,-2.243 5,-5c0,-2.757 -2.243,-5 -5,-5zM12,9c1.654,0 3,1.346 3,3c0,1.654 -1.346,3 -3,3c-1.654,0 -3,-1.346 -3,-3c0,-1.654 1.346,-3 3,-3z">
+                </path>
+              </g>
             </g>
-          </g>
-        </svg>
+          </svg></a>
       </div>
       <div class="footer__info">Мы в Instagram</div>
     </div>
-    <div class="footer__contacts contacts">+375 (29) 368-98-68</div>
+    <div class="footer__contacts contacts">{{phoneNumber}}</div>
     <div class="footer__rights">Все права защищены, 2020</div>
   </div>
 </footer>
+@if (showPresent) {
 <div class="present">
   <div class="present__popup">Оформите заказ и получите подарок!</div>
   <div class="present__box">
     <img src="../assets/images/present.png" alt="present box">
   </div>
 </div>
+}
