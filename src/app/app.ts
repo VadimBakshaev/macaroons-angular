@@ -1,19 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdvantageType } from './types/advantage.type';
 import { AssortmentType } from './types/assortment.type';
 import { FormsModule } from '@angular/forms';
+import { AssortmentService } from './services/assortment-service';
+import { CartCountService } from './services/cart-count-service';
+import { CartCountType } from './types/cart-count.type';
+import { Advantages } from "./components/advantages/advantages";
+import { Assortment } from "./components/assortment/assortment";
+import { ButtonAction } from "./directives/button-action";
+import { PriceTrasformPipe } from './pipes/price-trasform-pipe';
+import { PhonePrettyPipe } from './pipes/phone-pretty-pipe';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule],
+  imports: [FormsModule, Advantages, Assortment, ButtonAction, PriceTrasformPipe, PhonePrettyPipe],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
+  providers: [AssortmentService, CartCountService]
 })
-export class App {
-  public showPresent: boolean = true;
-  public phoneNumber: string = '+375 (29) 368-98-68';
+export class App implements OnInit {
+  public showCart: boolean = true;
+  public phoneNumber: number = 375293689868;
   public instaLink: string = '';
-  
+  public count: CartCountType = {
+    unitCount: '',
+    priceCount: 0
+  };
+  public assortment: AssortmentType[] = [];
+
+  constructor(private assortmentService: AssortmentService, private cartCount: CartCountService) { }
+
   public advantages: AdvantageType[] = [
     {
       title: 'Лучшие продукты',
@@ -33,32 +49,10 @@ export class App {
     },
   ];
 
-  public assortment: AssortmentType[] = [
-    {
-      image: '1.png',
-      name: 'Макарун с малиной',
-      count: 1,
-      price: 1.7
-    },
-    {
-      image: '2.png',
-      name: 'Макарун с манго',
-      count: 1,
-      price: 1.7
-    },
-    {
-      image: '3.png',
-      name: 'Пирог с ванилью',
-      count: 1,
-      price: 1.7
-    },
-    {
-      image: '4.png',
-      name: 'Макарун с киви',
-      count: 1,
-      price: 1.7
-    },
-  ];
+  ngOnInit(): void {
+    this.assortment = this.assortmentService.getAssortment();
+    this.count = this.cartCount.getCartCount();
+  }
 
   public formValue = {
     userChange: '',
@@ -69,6 +63,8 @@ export class App {
   public onOrder(unit: AssortmentType, target: HTMLElement): void {
     this.scrollTo(target);
     this.formValue.userChange = (unit.name).toUpperCase();
+    this.count = this.cartCount.incrementCount(unit.price);
+    alert(unit.name + ' добавлен в корзину!');
   };
 
   public scrollTo(target: HTMLElement): void {

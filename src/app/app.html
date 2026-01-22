@@ -8,7 +8,7 @@
         <a class="main__menu-item" (click)="scrollTo(orderEl);openMenu(menuEl)">Оформить заказ</a>
         <div class="main__menu-close-ico" (click)="openMenu(menuEl)">&#215;</div>
       </nav>
-      <div class="contacts main__contacts">{{phoneNumber}}</div>
+      <div class="contacts main__contacts">{{phoneNumber | phonePretty}}</div>
       <div class="main__menu-ico" (click)="openMenu(menuEl)">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="22px">
           <path fill-rule="evenodd" fill="rgb(130, 19, 40)"
@@ -26,7 +26,7 @@
           пироженки Macaroons</h1>
         <p class="main__text">Побалуйте себя и своих близких самыми вкусными и ароматными домашними
           пироженками Macaroon!</p>
-        <a class="main__button button" (click)="scrollTo(assortmentEl)">Выбрать макарун</a>
+        <a class="main__button button" buttonAction (click)="scrollTo(assortmentEl)">Выбрать макарун</a>
       </div>
       <div class="main__image">
         <img src="../assets/images/macaroon_big.png" alt="macaroons" class="main__image-img">
@@ -51,11 +51,7 @@
     </div>
     <div class="advantages__items">
       @for (advantage of advantages; track advantage; let i = $index) {
-      <div class="item">
-        <div class="item__number">{{i+1}}</div>
-        <h4 class="item__title">{{advantage.title}}</h4>
-        <p class="item__text">{{advantage.text}}</p>
-      </div>
+      <advantage [advantage]="advantage" [index]="i"></advantage>
       }
     </div>
   </div>
@@ -65,15 +61,7 @@
     <h2 class="assortment__title">Выберите свой макарун</h2>
     <div class="assortment__units">
       @for (unit of assortment; track unit; let i = $index) {
-      <div class="unit">
-        <img src="../assets/images/{{unit.image}}" alt="macaroon {{i+1}}" class="unit__image">
-        <div class="unit__box">
-          <h4 class="unit__name">{{unit.name}}</h4>
-          <p class="unit__count">{{unit.count}} шт.</p>
-          <p class="unit__price">{{(unit.price).toFixed(2)}} руб.</p>
-          <a class="unit__button button" (click)="onOrder(unit, orderEl)">Заказать</a>
-        </div>
-      </div>
+      <assortment [unit]="unit" [index]="i" (addToCartEvent)="onOrder($event, orderEl)"></assortment>      
       }
     </div>
   </div>
@@ -99,7 +87,7 @@
           name="user_name">
         <input type="text" placeholder="+375 (__) ___ - __ - __" class="order__input-phone input"
           [(ngModel)]="formValue.userPhone" name="user_phone">
-        <a class="order__button button">Оформить заказ</a>
+        <a class="order__button button" buttonAction>Оформить заказ</a>
       </form>
     </div>
     <div class="order__berry-two">
@@ -131,15 +119,15 @@
       </div>
       <div class="footer__info">Мы в Instagram</div>
     </div>
-    <div class="footer__contacts contacts">{{phoneNumber}}</div>
+    <div class="footer__contacts contacts">{{phoneNumber | phonePretty}}</div>
     <div class="footer__rights">Все права защищены, 2020</div>
   </div>
 </footer>
-@if (showPresent) {
-<div class="present">
-  <div class="present__popup">Оформите заказ и получите подарок!</div>
-  <div class="present__box">
-    <img src="../assets/images/present.png" alt="present box">
+@if (showCart) {
+<div class="cart">
+  <div class="cart__popup">{{count.priceCount | priceTrasform}}</div>
+  <div class="cart__box" [style.--cart-count]="count.unitCount">
+    <img src="../assets/images/cart.png" alt="cart">
   </div>
 </div>
 }

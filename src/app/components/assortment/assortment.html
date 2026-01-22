@@ -1,0 +1,9 @@
+<div class="unit">
+    <img src="../assets/images/{{unit.image}}" alt="macaroon {{index+1}}" class="unit__image">
+    <div class="unit__box">
+        <h4 class="unit__name">{{unit.name}}</h4>
+        <p class="unit__count">{{unit.count}} шт.</p>
+        <p class="unit__price">{{unit.price | priceTrasform}}</p>
+        <a class="unit__button button" buttonAction (click)="addToCart()">Заказать</a>        
+    </div>
+</div>
