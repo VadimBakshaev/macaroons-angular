@@ -14,6 +14,9 @@
         }
       },
       "root": "",
+      "i18n": {
+        "sourceLocale": "ru"
+      },
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -32,6 +35,9 @@
             ],
             "styles": [
               "src/styles.scss"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
             ]
           },
           "configurations": {

@@ -3,7 +3,7 @@
     <div class="unit__box">
         <h4 class="unit__name">{{unit.name}}</h4>
         <p class="unit__count">{{unit.count}} шт.</p>
-        <p class="unit__price">{{unit.price | priceTrasform}}</p>
+        <p class="unit__price">{{unit.price | currency:'руб.'}}</p>
         <a class="unit__button button" buttonAction (click)="addToCart()">Заказать</a>        
     </div>
 </div>

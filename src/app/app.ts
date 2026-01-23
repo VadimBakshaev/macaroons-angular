@@ -8,12 +8,12 @@ import { CartCountType } from './types/cart-count.type';
 import { Advantages } from "./components/advantages/advantages";
 import { Assortment } from "./components/assortment/assortment";
 import { ButtonAction } from "./directives/button-action";
-import { PriceTrasformPipe } from './pipes/price-trasform-pipe';
 import { PhonePrettyPipe } from './pipes/phone-pretty-pipe';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, Advantages, Assortment, ButtonAction, PriceTrasformPipe, PhonePrettyPipe],
+  imports: [FormsModule, Advantages, Assortment, ButtonAction, CurrencyPipe, PhonePrettyPipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   providers: [AssortmentService, CartCountService]

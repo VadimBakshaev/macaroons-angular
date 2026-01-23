@@ -26,7 +26,11 @@
           пироженки Macaroons</h1>
         <p class="main__text">Побалуйте себя и своих близких самыми вкусными и ароматными домашними
           пироженками Macaroon!</p>
-        <a class="main__button button" buttonAction (click)="scrollTo(assortmentEl)">Выбрать макарун</a>
+        <a class="main__button button"
+         buttonAction 
+         [buttonDefaultBg]="'linear-gradient(90deg, rgb(0, 8, 30) 0%, rgb(0, 72, 92) 100%)'" 
+         [buttonHoverBg]="'linear-gradient(90deg, rgb(215, 72, 0) 0%, rgb(113, 8, 0) 100%)'"
+         (click)="scrollTo(assortmentEl)">Выбрать макарун</a>
       </div>
       <div class="main__image">
         <img src="../assets/images/macaroon_big.png" alt="macaroons" class="main__image-img">
@@ -61,7 +65,7 @@
     <h2 class="assortment__title">Выберите свой макарун</h2>
     <div class="assortment__units">
       @for (unit of assortment; track unit; let i = $index) {
-      <assortment [unit]="unit" [index]="i" (addToCartEvent)="onOrder($event, orderEl)"></assortment>      
+      <assortment [unit]="unit" [index]="i" (addToCartEvent)="onOrder($event, orderEl)"></assortment>
       }
     </div>
   </div>
@@ -125,7 +129,7 @@
 </footer>
 @if (showCart) {
 <div class="cart">
-  <div class="cart__popup">{{count.priceCount | priceTrasform}}</div>
+  <div class="cart__popup">{{count.priceCount | currency:'руб.'}}</div>
   <div class="cart__box" [style.--cart-count]="count.unitCount">
     <img src="../assets/images/cart.png" alt="cart">
   </div>

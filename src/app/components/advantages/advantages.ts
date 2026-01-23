@@ -1,10 +1,11 @@
 import { Component, HostListener, Input } from '@angular/core';
 import { AdvantageType } from '../../types/advantage.type';
 import { TextCroppingPipe } from '../../pipes/text-cropping-pipe';
+import { MouseAction } from "../../directives/mouse-action";
 
 @Component({
   selector: 'advantage',
-  imports: [TextCroppingPipe],
+  imports: [TextCroppingPipe, MouseAction],
   templateUrl: './advantages.html',
   styleUrl: './advantages.scss',
 })
@@ -17,14 +18,5 @@ export class Advantages {
       title: '',
       text: ''
     }
-  }
-
-  @HostListener('mouseover')
-  onHover(){
-    this.showFullText = true;
-  }
-  @HostListener('mouseout')
-  onMouseOut(){
-    this.showFullText = false;
   }
 }

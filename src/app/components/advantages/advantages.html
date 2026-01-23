@@ -1,9 +1,7 @@
 <div class="item">
     <div class="item__number">{{index+1}}</div>
     <h4 class="item__title">{{advantage.title}}</h4>
-    @if (showFullText) {
-    <p class="item__text">{{advantage.text}}</p>
-    } @else {
-    <p class="item__text">{{advantage.text | textCropping}}</p>
-    }
+    <p class="item__text" mouseAction (hoverMouse)="showFullText = $event">
+        {{showFullText ? advantage.text : advantage.text | textCropping }}
+    </p>
 </div>

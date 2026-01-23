@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AssortmentType } from '../../types/assortment.type';
 import { ButtonAction } from "../../directives/button-action";
-import { PriceTrasformPipe } from '../../pipes/price-trasform-pipe';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'assortment',
-  imports: [ButtonAction, PriceTrasformPipe],
+  imports: [ButtonAction, CurrencyPipe],
   templateUrl: './assortment.html',
   styleUrl: './assortment.scss',
 })
